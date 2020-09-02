@@ -1,0 +1,32 @@
+// IMPORT SECTION
+@import 'node_modules/bootstrap/scss/bootstrap-reboot.scss';
+// Bootstrap Reboot collection
+
+// USER VARIABLES SECTION
+@mixin font($f-name, $f-style, $f-weight, $f-url) {
+  @font-face {
+    font-family: $f-name;
+    font-style: $f-style;
+    font-weight: $f-weight;
+    src: url($f-url + '.woff2') format('woff2');
+  }
+}
+
+@include font(
+  'Helvetica Neue LT W1G',
+  thin,
+  300,
+  '../fonts/HelveticaNeueLTW1G-300'
+);
+@include font(
+  'Helvetica Neue LT W1G',
+  normal,
+  400,
+  '../fonts/HelveticaNeueLTW1G-400'
+);
+@include font(
+  'Helvetica Neue LT W1G',
+  bold,
+  500,
+  '../fonts/HelveticaNeueLTW1G-500'
+);
