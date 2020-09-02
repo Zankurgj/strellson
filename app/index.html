@@ -45,6 +45,7 @@
                     class="header-lk-login-input"
                     placeholder="Email или телефон"
                     required
+                    id="phone"
                   />
                 </label>
                 <label class="header-lk-login-input-wrapper">
@@ -92,24 +93,67 @@
     <script src="js/app.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        var elements = document.querySelectorAll('.header-lk-login-input');
-        var submitBtn = document.querySelector('.header-lk-login-submit');
-        for (var i = 0; i < elements.length; i++) {
-          elements[i].oninput = function (e) {
-            if (checkVal(elements)) {
-              submitBtn.disabled = false;
-            } else {
-              submitBtn.disabled = true;
-            }
-          };
-        }
         $(document).on('click', function (e) {
           var parent = $('.header-lk-wrapper');
           if ($(e.target).closest(parent).length) return;
           $('#headerLoginPopup').removeClass('header-lk-login-inner--show');
           $('.lk-btn').removeClass('active');
         });
+
+        var phone = document.getElementById('phone');
+        phone.oninput = function (e) {
+          var value = phone.value;
+          if (!phone.inputmask) {
+            if (value.includes('+') || Number(value)) {
+              Inputmask({ mask: '+7(999)999-99-99' }).mask(phone);
+            } else {
+              if (isValidEmail(value)) {
+                unblockSubmitBtn();
+              } else {
+                blockSubmitBtn();
+              }
+            }
+          } else if (phone.inputmask && getRawTelNumber(value) === '') {
+            phone.inputmask.remove();
+          } else if (phone.inputmask && getRawTelNumber(value).length) {
+            console.log(getRawTelNumber(value).length);
+            if (isValidPhoneNumber(getRawTelNumber(value))) {
+              unblockSubmitBtn();
+            } else {
+              blockSubmitBtn();
+            }
+          }
+        };
       });
+
+      function blockSubmitBtn() {
+        var submitBtn = document.querySelector('.header-lk-login-submit');
+        submitBtn.disabled = true;
+      }
+      function unblockSubmitBtn() {
+        var submitBtn = document.querySelector('.header-lk-login-submit');
+        submitBtn.disabled = false;
+      }
+
+      function isValidPhoneNumber(value) {
+        if (value.length === 12) {
+          return true;
+        }
+        return false;
+      }
+
+      function isValidEmail(value) {
+        var reg = /^[^\@]+@.*\.[a-z]{2,6}$/i;
+        return reg.test(value);
+      }
+
+      function getRawTelNumber(val) {
+        return val
+          .replace(/-/g, '')
+          .replace(/_/g, '')
+          .replace(/\(/g, '')
+          .replace(/\)/g, '');
+      }
       function checkVal(elements) {
         for (var i = 0; i < elements.length; i++) {
           if (!elements[i].value) {

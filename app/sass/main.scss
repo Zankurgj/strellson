@@ -186,7 +186,8 @@ input[type='submit'] {
   margin: 20px 0;
   &:hover {
     background: #fff;
-    color: #000;
+    color: #b72e29;
+    border-color: #868585;
   }
   &:disabled {
     background-color: rgba(0, 0, 0, 0.4);
