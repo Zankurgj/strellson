@@ -190,9 +190,10 @@ input[type='submit'] {
     border-color: #868585;
   }
   &:disabled {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-color: rgba(0, 0, 0, 0.4);
-    pointer-events: none;
+    background-color: #d66a66;
+    border: 1px solid #d66a66;
+    color: #fff;
+    cursor: default;
   }
 }
 .header-lk-social-wrapper {
@@ -203,7 +204,7 @@ input[type='submit'] {
 .header-lk-social-item {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  // border-radius: 50%;
   border: 1px solid rgba($color: #000, $alpha: 0.2);
   background-repeat: no-repeat;
   background-position: center;
