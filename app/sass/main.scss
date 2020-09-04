@@ -120,7 +120,8 @@ input[type='submit'] {
   border-bottom: 1px solid #d4d4d4;
 }
 .header-lk-link {
-  font-size: 14px;
+  font-family: Helvetica Neue LT W1G, Arial, sans-serif;
+  font-size: 16px;
   color: #8a8d90;
   text-decoration: underline;
   transition: 0.3s;
@@ -161,6 +162,9 @@ input[type='submit'] {
   transition: 0.3s;
   font-family: Helvetica Neue LT W1G, Arial, sans-serif;
   border: 1px solid rgba($color: #000, $alpha: 0.2);
+  border-radius: 0;
+  box-shadow: none;
+  appearance: none;
   &:hover {
     border-color: rgba($color: #000, $alpha: 0.3);
   }
@@ -183,15 +187,15 @@ input[type='submit'] {
   padding: 10px 50px;
   transition: 0.3s;
   width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 30px 0;
   &:hover {
     background: #fff;
     color: #b72e29;
     border-color: #868585;
   }
   &:disabled {
-    background-color: #d66a66;
-    border: 1px solid #d66a66;
+    background-color: #b72e29;
+    border: 1px solid #b72e29;
     color: #fff;
     cursor: default;
   }
