@@ -10,84 +10,56 @@
   </head>
 
   <body>
-    <!-- CUSTOM HTML -->
-    <header class="header header_inner header__transparent">
-      <div class="container container-header">
-        <div class="logo">
-          <svg class="svg-icon logo-icon">
-            <use xlink:href="./images/sprite.symbol.svg#logo"></use>
-          </svg>
-        </div>
-        <div class="btns-block">
-          <button class="header-btn star-btn">
-            <svg class="svg-icon star-btn-icon">
-              <use xlink:href="./images/sprite.symbol.svg#shield"></use>
-            </svg>
-          </button>
-          <div class="header-lk-wrapper">
-            <button class="header-btn lk-btn" onclick="onShowLogin(this)">
-              <svg class="svg-icon lk-btn-icon">
-                <use xlink:href="./images/sprite.symbol.svg#user-icon"></use>
-              </svg>
-            </button>
-            <div class="header-lk-login-inner" id="headerLoginPopup">
-              <form class="header-lk-login-form">
-                <!-- <p class="header-lk-login-title">Логин</p> -->
-                <!-- <p class="header-lk-login-sub-title">
-                  Войдите, используя свой <br />
-                  логин и пароль
-                </p> -->
+    <!-- Кнопку нужно убрать, оставил для функции  -->
 
-                <label class="header-lk-login-input-wrapper">
-                  <!-- <p class="header-lk-login-input-title">Логин/E-Mail:</p> -->
-                  <input
-                    type="text"
-                    class="header-lk-login-input"
-                    placeholder="Email или телефон"
-                    required
-                    id="phone"
-                  />
-                </label>
-                <label class="header-lk-login-input-wrapper">
-                  <!-- <p class="header-lk-login-input-title">Пароль</p> -->
-                  <input
-                    type="password"
-                    class="header-lk-login-input"
-                    placeholder="Пароль"
-                    required
-                  />
-                </label>
-                <button type="submit" class="header-lk-login-submit" disabled>
-                  Войти
-                </button>
-              </form>
-              <div class="header-lk-links">
-                <a href="#" class="header-lk-link">Забыли пароль?</a>
-                <a href="#" class="header-lk-link">Регистрация</a>
-              </div>
-              <p class="header-lk-login-sub-title">Авторизоваться через:</p>
-              <div class="header-lk-social-wrapper">
-                <button class="header-lk-social-item header-lk-social-item-vk">
-                  <span>Вконтакте</span>
-                </button>
-                <button class="header-lk-social-item header-lk-social-item-fb">
-                  <span>Фейсбук</span>
-                </button>
-                <button class="header-lk-social-item header-lk-social-item-g">
-                  <span>Гугл</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <button class="header-btn basket-btn">
-            <svg class="svg-icon basket-btn-icon">
-              <use xlink:href="./images/sprite.symbol.svg#basket-cart"></use>
-            </svg>
-          </button>
-        </div>
+    <!-- <button class="header-btn lk-btn" onclick="onShowLogin(this)">
+      <svg class="svg-icon lk-btn-icon">
+        <use xlink:href="./images/sprite.symbol.svg#user-icon"></use>
+      </svg>
+    </button> -->
+
+    <!-- Сам попап, его нужно вставить в конейнер с кнопкой. ".header__personal" - это класс контейнера -->
+
+    <div class="header-lk-login-inner" id="headerLoginPopup">
+      <form class="header-lk-login-form">
+        <label class="header-lk-login-input-wrapper">
+          <input
+            type="text"
+            class="header-lk-login-input"
+            placeholder="Email или телефон"
+            required
+            id="phone"
+          />
+        </label>
+        <label class="header-lk-login-input-wrapper">
+          <input
+            type="password"
+            class="header-lk-login-input"
+            placeholder="Пароль"
+            required
+          />
+        </label>
+        <button type="submit" class="header-lk-login-submit" disabled>
+          Войти
+        </button>
+      </form>
+      <div class="header-lk-links">
+        <a href="#" class="header-lk-link">Забыли пароль?</a>
+        <a href="#" class="header-lk-link">Регистрация</a>
       </div>
-    </header>
-    <script src="js/app.min.js"></script>
+      <p class="header-lk-login-sub-title">Авторизоваться через:</p>
+      <div class="header-lk-social-wrapper">
+        <button class="header-lk-social-item header-lk-social-item-vk">
+          <span>Вконтакте</span>
+        </button>
+        <button class="header-lk-social-item header-lk-social-item-fb">
+          <span>Фейсбук</span>
+        </button>
+        <button class="header-lk-social-item header-lk-social-item-g">
+          <span>Гугл</span>
+        </button>
+      </div>
+    </div>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         $(document).on('click', function (e) {
