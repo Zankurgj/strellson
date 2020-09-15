@@ -20,7 +20,10 @@
 
     <!-- Сам попап, его нужно вставить в конейнер с кнопкой. ".header__personal" - это класс контейнера -->
 
-    <div class="header-lk-login-inner" id="headerLoginPopup">
+    <div
+      class="header-lk-login-inner header-lk-login-inner--show"
+      id="headerLoginPopup"
+    >
       <form class="header-lk-login-form">
         <label class="header-lk-login-input-wrapper">
           <input
@@ -36,11 +39,37 @@
             type="password"
             class="header-lk-login-input"
             placeholder="Пароль"
+            id="passwordInput"
             required
           />
         </label>
-        <button type="submit" class="header-lk-login-submit" disabled>
+        <label class="header-lk-login-input-wrapper">
+          <input
+            type="text"
+            class="header-lk-login-input"
+            style="display: none"
+            id="codeInput"
+            placeholder="Код"
+            required
+          />
+        </label>
+        <button
+          type="submit"
+          class="header-lk-login-submit"
+          id="loginBtn"
+          disabled
+        >
           Войти
+        </button>
+        <button
+          type="button"
+          class="header-lk-login-submit"
+          id="sendBtn"
+          style="display: none"
+          disabled
+          onclick="onSendCode()"
+        >
+          Отправить код
         </button>
       </form>
       <div class="header-lk-links">
@@ -60,14 +89,15 @@
         </button>
       </div>
     </div>
+    <script src="js/app.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        $(document).on('click', function (e) {
-          var parent = $('.header-lk-wrapper');
-          if ($(e.target).closest(parent).length) return;
-          $('#headerLoginPopup').removeClass('header-lk-login-inner--show');
-          $('.lk-btn').removeClass('active');
-        });
+        // $(document).on('click', function (e) {
+        //   var parent = $('.header-lk-wrapper');
+        //   if ($(e.target).closest(parent).length) return;
+        //   $('#headerLoginPopup').removeClass('header-lk-login-inner--show');
+        //   $('.lk-btn').removeClass('active');
+        // });
 
         var phone = document.getElementById('phone');
         phone.oninput = function (e) {
@@ -75,6 +105,9 @@
           if (!phone.inputmask) {
             if (value.includes('+') || Number(value)) {
               Inputmask({ mask: '+7(999)999-99-99' }).mask(phone);
+              hidePwdInput();
+              $('#loginBtn').hide();
+              $('#sendBtn').show();
             } else {
               if (isValidEmail(value)) {
                 unblockSubmitBtn();
@@ -84,22 +117,57 @@
             }
           } else if (phone.inputmask && getRawTelNumber(value) === '') {
             phone.inputmask.remove();
+            phone.placeholder = 'Email или телефон';
+            showPwdInput();
+            hideCodeInput();
+            $('#loginBtn').show();
+            $('#sendBtn').hide();
           } else if (phone.inputmask && getRawTelNumber(value).length) {
             if (isValidPhoneNumber(getRawTelNumber(value))) {
-              unblockSubmitBtn();
+              unblockCodeBtn();
             } else {
-              blockSubmitBtn();
+              blockCodeBtn();
             }
           }
         };
+        var code = document.getElementById('codeInput');
+        code.oninput = function (e) {
+          if (code.value) {
+            unblockSubmitBtn();
+          } else {
+            blockSubmitBtn();
+          }
+        };
       });
-
+      function onSendCode() {
+        $('#codeInput').show();
+        $('#loginBtn').show();
+        $('#sendBtn').hide();
+      }
+      function showCodeInput() {
+        $('#codeInput').show();
+      }
+      function hideCodeInput() {
+        $('#codeInput').hide();
+      }
+      function showPwdInput() {
+        $('#passwordInput').show();
+      }
+      function hidePwdInput() {
+        $('#passwordInput').hide();
+      }
+      function blockCodeBtn() {
+        document.querySelector('#sendBtn').disabled = true;
+      }
+      function unblockCodeBtn() {
+        document.querySelector('#sendBtn').disabled = false;
+      }
       function blockSubmitBtn() {
-        var submitBtn = document.querySelector('.header-lk-login-submit');
+        var submitBtn = document.querySelector('#loginBtn');
         submitBtn.disabled = true;
       }
       function unblockSubmitBtn() {
-        var submitBtn = document.querySelector('.header-lk-login-submit');
+        var submitBtn = document.querySelector('#loginBtn');
         submitBtn.disabled = false;
       }
 
