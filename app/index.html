@@ -24,13 +24,16 @@
       class="header-lk-login-inner header-lk-login-inner--show"
       id="headerLoginPopup"
     >
-      <form class="header-lk-login-form">
+      <form
+        class="header-lk-login-form"
+        name="Login Form"
+        onsubmit="onSubmitLogin(this);return false;"
+      >
         <label class="header-lk-login-input-wrapper">
           <input
             type="text"
             class="header-lk-login-input"
             placeholder="Email или телефон"
-            required
             id="phone"
           />
         </label>
@@ -40,7 +43,6 @@
             class="header-lk-login-input"
             placeholder="Пароль"
             id="passwordInput"
-            required
           />
         </label>
         <label class="header-lk-login-input-wrapper">
@@ -50,15 +52,9 @@
             style="display: none"
             id="codeInput"
             placeholder="Код"
-            required
           />
         </label>
-        <button
-          type="submit"
-          class="header-lk-login-submit"
-          id="loginBtn"
-          disabled
-        >
+        <button type="submit" class="header-lk-login-submit" id="loginBtn">
           Войти
         </button>
         <button
@@ -66,7 +62,6 @@
           class="header-lk-login-submit"
           id="sendBtn"
           style="display: none"
-          disabled
           onclick="onSendCode()"
         >
           Отправить код
@@ -110,9 +105,9 @@
               $('#sendBtn').show();
             } else {
               if (isValidEmail(value)) {
-                unblockSubmitBtn();
+                // unblockSubmitBtn();
               } else {
-                blockSubmitBtn();
+                // blockSubmitBtn();
               }
             }
           } else if (phone.inputmask && getRawTelNumber(value) === '') {
@@ -124,9 +119,9 @@
             $('#sendBtn').hide();
           } else if (phone.inputmask && getRawTelNumber(value).length) {
             if (isValidPhoneNumber(getRawTelNumber(value))) {
-              unblockCodeBtn();
+              // unblockCodeBtn();
             } else {
-              blockCodeBtn();
+              // blockCodeBtn();
             }
           }
         };
@@ -139,10 +134,28 @@
           }
         };
       });
+
+      function onSubmitLogin() {
+        var phone = document.getElementById('phone');
+        var code = document.getElementById('codeInput');
+        if (isValidEmail(phone.value) || code.value) {
+          // Код для отправки
+          console.log('Submit');
+        } else {
+          console.log('No submit');
+          return;
+        }
+      }
+
       function onSendCode() {
-        $('#codeInput').show();
-        $('#loginBtn').show();
-        $('#sendBtn').hide();
+        var phone = document.getElementById('phone');
+        if (isValidPhoneNumber(getRawTelNumber(phone.value))) {
+          $('#codeInput').show();
+          $('#loginBtn').show();
+          $('#sendBtn').hide();
+        } else {
+          return;
+        }
       }
       function showCodeInput() {
         $('#codeInput').show();
